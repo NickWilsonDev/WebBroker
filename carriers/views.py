@@ -32,3 +32,16 @@ def carrierDetail(request, pk):
     carrier = get_object_or_404(Carrier, pk=pk)
     return render(request, 'carriers/carrierDetail.html', {'carrier': carrier})
 
+@login_required
+def carrierEdit(request, pk):
+    carrier = get_object_or_404(Carrier, pk=pk)
+    if request.method == "POST":
+        form = CarrierForm(request.POST, instance=carrier)
+        if form.is_valid():
+            carrier = form.save(commit=False)
+            carrier.save()
+            return render(request, 'carriers/carrierDetail.html', {'carrier':carrier})
+    else:
+        form = CarrierForm(instance=carrier)
+    return render(request, 'carriers/carrierEdit.html', {'form':form})
+

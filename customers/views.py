@@ -29,4 +29,17 @@ def listCustomers(request):
 def customerDetail(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     return render(request, 'customers/customerDetail.html', {'customer': customer})
-    
+
+@login_required
+def customerEdit(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    if request.method == "POST":
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            customer = form.save(commit=False)
+            customer.save()
+            return render(request, 'customers/customerDetail.html', {'customer':customer})
+    else:
+        form = CustomerForm(instance=customer)
+    return render(request, 'customers/customerEdit.html', {'form':form})
+        

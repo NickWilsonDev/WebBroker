@@ -18,12 +18,13 @@ urlpatterns = patterns('',
 # back end urls
     url(r'^newCustomer/$', 'customers.views.newCustomer', name='newCustomer'),
     url(r'^customerList/$', 'customers.views.listCustomers', name='listCustomers'),
-
+    url(r'^customerEdit/(?P<pk>[0-9]+)$', 'customers.views.customerEdit', name='customerEdit'),
     url(r'^customerDetail/(?P<pk>[0-9]+)/$', 'customers.views.customerDetail', name='customerDetail'),
+
     url(r'^newCarrier/$', 'carriers.views.newCarrier', name='newCarrier'),
     url(r'^carrierList/$', 'carriers.views.listCarriers', name='listCarriers'),
-
-    url(r'^carrierDetail/(?P<pk>[0-9]+)/$', 'carriers.views.carrierDetail', name='carrierDetail'),
+    url(r'^carrierDetail/(?P<pk>[0-9]+)/$', 'carriers.views.carrierDetail', name='carrierDetail'),    
+    url(r'^carrierEdit/(?P<pk>[0-9]+)$', 'carriers.views.carrierEdit', name='carrierEdit'),
     
     url(r'^newLoad/$', 'loads.views.newLoad', name='newLoads'),
     url(r'^listLoads/$', 'loads.views.listLoads', name='listLoads'),

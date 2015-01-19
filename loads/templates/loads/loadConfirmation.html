@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-
+{% load staticfiles %}
 <html>
-
     <head>
         <title>All Points Load Confirmation Sheet</title>
     </head>
-
     <Body>
         <center>
+            <img src="{% static 'images/VintageCompass2.png' %}" height="80" width="80"/>
             <h1> All Points Bulk Transport LLC</b></h1>
             117 Blackberry Ln<br>
             Fairview, NC 28730<br>
@@ -30,7 +29,7 @@
         <b>Shipper</b> <br>
             <tr>  
                 <th>
-                    <b>Pickup Date:</b> {{ load.pickupDate }}    <br>
+                    <b>Pickup Date:</b> {{ load.pickupDate }} <br>
                 </th>
             </tr>  
             <tr> 
@@ -117,7 +116,5 @@
             </tr>
             </table>
         </center>
-
     </body>
-
 </html>
