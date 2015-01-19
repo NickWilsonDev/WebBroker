@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>AllPointsBulk</title>
+        <link rel="stylesheet" href="{% static 'css/frontend.css' %}">
+        <center><h1>All Points Bulk Transport LLC</h1></center>
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/customerContact">Contact</a>
+                    <ul>
+                        <li><a href="/customerContact">Customers</a></li>
+                        <li><a href="/carrierContact">Carriers</a></li>
+                    </ul>
+                </li>
+                <li><a href="/missionStatement">Mission Statement</a></li>
+                <li><a href="/login/">Login</a></li>
+        </nav>
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+    <center>
+    <img src="{% static 'images/VintageCompass2.png' %}" height="150" width="150"/>
+    </center>
+</html>

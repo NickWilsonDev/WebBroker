@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+
+    <header>
+        <a href="/logout/">Logout</a>                                           
+        <a href="/newCustomer/">Add Customer</a>                                
+        <a href="/customerList/">Customer List</a>                              
+        <a href="/newCarrier/">Add Carrier</a>                                  
+        <a href="/carrierList/">CarrierList</a>                                 
+        <a href="/newLoad/">Add Load</a>                                        
+        <a href="/home/">Home</a> 
+    </header>
+    
+    <h1> Carrier List </h1>
+    {% for carrier in carriers %}
+        <a href="/carrierDetail/{{ carrier.pk }}">{{ carrier.company_name }}</a>
+        <br>
+
+    {% endfor %}
+
+</html>
