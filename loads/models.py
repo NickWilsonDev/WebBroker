@@ -1,5 +1,7 @@
 from django.db import models
 from django.forms import ModelForm, ChoiceField, Form
+from django.core.exceptions import ValidationError
+
 from django import forms
 
 import datetime
@@ -68,7 +70,15 @@ class Load(models.Model):
 
 # NOT DONE NEED MORE FIELDS AND MAKE A FORM
 
+
+    def validate_choices(value):
+        print value
+
+
 class LoadForm(ModelForm, Form):
+
+
+
 
     def __init__(self, *args, **kwargs):
         super(LoadForm, self).__init__(*args, **kwargs)
@@ -101,4 +111,23 @@ class LoadForm(ModelForm, Form):
                   'special_instructions', 'brokerRate', 'brokerPercent', 'bfsc', 'carrierRate', 
                   'carrierPercent', 'cfsc', 'pickupDate', 'recieveDate', 
                   'loadConfirmed']
-        
+    
+
+    def clean(self):
+        """
+        This is kind of a hack function. It overrides the data validation for
+        the 'customer' and 'carrier' fields. The user is only given valid 
+        options to choose from that exist in the database. Another possible fix
+        might be to somehow get a dynamic list of possible choices and see if
+        the user's choice was contained in that group, but that would be 
+        redoundant. Validation for the other fields is still maintained.
+        """
+        cleaned_data = super(LoadForm, self).clean()
+        #print self.errors.as_data()
+        if 'customer' in self.errors:
+            del self._errors['customer']
+        if 'carrier' in self.errors:
+            del self._errors['carrier']
+        #print "----------------------------"
+        #print self.errors.as_data()
+        return cleaned_data

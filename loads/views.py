@@ -64,14 +64,16 @@ def user_login(request):
         # blank dictionary object...
         return render(request, 'loads/login.html', {})
 
-def home(request):
-    today = datetime.date.today()
-    loads = getListLoads(today)
-    return render(request, 'loads/broker.html', {'loads': loads})
 
 def getListLoads(theday):
     loads = Load.objects.filter(date=theday).order_by('pk')
     return loads
+
+@login_required
+def home(request):
+    today = datetime.date.today()
+    loads = getListLoads(today)
+    return render(request, 'loads/listLoads.html', {'loads': loads})
 
 def convertDateFormat(date):
     newdate = datetime.datetime.strptime(date, '%m/%d/%Y').strftime('%Y-%m-%d')
