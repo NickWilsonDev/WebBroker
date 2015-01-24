@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import ModelForm, ChoiceField, Form
 from django.core.exceptions import ValidationError
+from django.core import validators
 
 from django import forms
 
@@ -19,18 +20,6 @@ class Load(models.Model):
         ('Other', 'Other')
     )
 
-    CUSTOMER_CHOICES = Customer.objects.all()
-    customerList = []
-    for customer in CUSTOMER_CHOICES:
-        tempTuple = [(customer.company_name), (customer.company_name)]
-        customerList.append(tempTuple)
-    
-    CARRIER_CHOICES = Carrier.objects.all()
-    carrierList = []
-    for carrier in CARRIER_CHOICES:
-        tempTuple = [(carrier.company_name), (carrier.company_name)]
-        carrierList.append(tempTuple)
-
     commodity = models.CharField("Commodity", max_length=17, choices=COMMODITY_CHOICES)
     commodity_details = models.CharField("Commodity Details", max_length=30, blank=True, null=True)
     
@@ -48,11 +37,10 @@ class Load(models.Model):
    
     special_instructions = models.CharField("Special Instructions/Reference Numbers", max_length=40, blank=True, null=True)
 
-    customer = models.CharField("Customer", max_length=40, choices=customerList, default="")
+    customer = models.CharField("Customer", max_length=40, default="")
 
-    carrier = models.CharField("Carrier", max_length=40, choices=carrierList, default="")
+    carrier = models.CharField("Carrier", max_length=40, default="")
 
-    
     date = models.DateField(blank=False, help_text="Date load will appear in application")
     pickupDate = models.DateField(blank=False)
     recieveDate = models.DateField(blank=False)
@@ -71,32 +59,24 @@ class Load(models.Model):
 # NOT DONE NEED MORE FIELDS AND MAKE A FORM
 
 
-    def validate_choices(value):
-        print value
-
-
 class LoadForm(ModelForm, Form):
-
-
-
 
     def __init__(self, *args, **kwargs):
         super(LoadForm, self).__init__(*args, **kwargs)
         CUSTOMER_CHOICES = Customer.objects.all()
-        customerList = []
+        custList = []
         for customer in CUSTOMER_CHOICES:
             tempTuple = [(customer.company_name), (customer.company_name)]
-            customerList.append(tempTuple)
+            custList.append(tempTuple)
 
         CARRIER_CHOICES = Carrier.objects.all()
-        carrierList = []
+        carrList = []
         for carrier in CARRIER_CHOICES:
             tempTuple = [(carrier.company_name), (carrier.company_name)]
-            carrierList.append(tempTuple)
+            carrList.append(tempTuple)
 
-
-        self.fields['customer'] = forms.ChoiceField(choices=customerList)
-        self.fields['carrier'] = forms.ChoiceField(choices=carrierList)
+        self.fields['customer'] = forms.CharField(widget=forms.Select(choices=custList))
+        self.fields['carrier'] = forms.CharField(widget=forms.Select(choices=carrList))
 
     class Meta:
         model = Load
@@ -112,22 +92,3 @@ class LoadForm(ModelForm, Form):
                   'carrierPercent', 'cfsc', 'pickupDate', 'recieveDate', 
                   'loadConfirmed']
     
-
-    def clean(self):
-        """
-        This is kind of a hack function. It overrides the data validation for
-        the 'customer' and 'carrier' fields. The user is only given valid 
-        options to choose from that exist in the database. Another possible fix
-        might be to somehow get a dynamic list of possible choices and see if
-        the user's choice was contained in that group, but that would be 
-        redoundant. Validation for the other fields is still maintained.
-        """
-        cleaned_data = super(LoadForm, self).clean()
-        #print self.errors.as_data()
-        if 'customer' in self.errors:
-            del self._errors['customer']
-        if 'carrier' in self.errors:
-            del self._errors['carrier']
-        #print "----------------------------"
-        #print self.errors.as_data()
-        return cleaned_data

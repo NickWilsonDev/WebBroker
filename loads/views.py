@@ -93,6 +93,9 @@ def getLoadsByDestinationState(state):
 
 @login_required
 def listLoads(request):
+    """
+        These are the basic 'search' functions for use by the user.
+    """
     if 'targetDate' in request.POST:
         targetDate = request.POST['targetDate']
         newdate = convertDateFormat(targetDate)
@@ -134,6 +137,8 @@ def newLoad(request):
             today = datetime.date.today()
             loads = getListLoads(today)
             return render(request, 'loads/broker.html', {'loads':loads})
+        else:
+            print form.errors
     else:
         form = LoadForm()
     return render(request, 'loads/newLoad.html', {'form': form})
