@@ -1,0 +1,19 @@
+{% extends 'jobs/brokerHeader.html' %}
+
+<html>
+
+    {% block content %}
+
+
+<body>
+        <h1> Add New Job </h1>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+
+    {% endblock content %}
+    <h1> whattttttttttttttttttttttttttttt</h1>
+</body>
+</html>
+

@@ -13,11 +13,83 @@
     </head>
 
     <h1> Add New Load </h1>
-
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-defualt">Save</button>
     </form>
 
+    <script type="text/javascript">
+        $("#id_job").on('change', function() {
+
+            var jobName = $("#id_job").val();
+            var jsonArray = {{ jobs|safe }}; 
+            
+            if (jobName != "None") {
+                //alert("Handler for id_job called " + jobName);
+                //alert(jsonArray[0].fields.job_name );
+                var index;
+                for ( index = 0; index < jsonArray.length; index++) {
+                    if (jsonArray[index].fields.job_name == jobName) {
+                        document.getElementById("id_commodity").value
+                                        = jsonArray[index].fields.commodity;
+                        document.getElementById("id_commodity_details").value
+                                        = jsonArray[index].fields.commodity_details;
+                        
+                        
+                        document.getElementById("id_shipper").value
+                                        = jsonArray[index].fields.shipper;
+                        
+                        document.getElementById("id_shipper_street_address").value
+                                        = jsonArray[index].fields.shipper_street_address;
+
+                        document.getElementById("id_origin_city").value
+                                        = jsonArray[index].fields.origin_city;
+
+                        document.getElementById("id_origin_state").value
+                                        = jsonArray[index].fields.origin_state;
+
+                        document.getElementById("id_shipperNumber").value
+                                        = jsonArray[index].fields.shipperNumber;
+
+                        document.getElementById("id_shipperPickupHours").value
+                                        = jsonArray[index].fields.shipperPickupHours;
+
+
+                        document.getElementById("id_reciever").value 
+                                        = jsonArray[index].fields.reciever;
+                        document.getElementById("id_reciever_street_address").value
+                                        = jsonArray[index].fields.reciever_street_address;
+
+                        document.getElementById("id_reciever_city").value 
+                                        = jsonArray[index].fields.reciever_city;
+                       
+                        document.getElementById("id_reciever_state").value 
+                                        = jsonArray[index].fields.reciever_state;
+                        document.getElementById("id_recieverNumber").value 
+                                        = jsonArray[index].fields.recieverNumber;
+                        document.getElementById("id_recieverDropOffHours").value 
+                                        = jsonArray[index].fields.recieverDropOffHours;
+
+                        document.getElementById("id_special_instructions").value
+                                        = jsonArray[index].fields.special_instructions;
+
+                        document.getElementById("id_customer").value
+                                        = jsonArray[index].fields.customer;
+
+                        document.getElementById("id_brokerRate").value
+                                        = jsonArray[index].fields.brokerRate;
+                        document.getElementById("id_bfsc").value
+                                        = jsonArray[index].fields.bfsc;
+                        
+                        document.getElementById("id_carrierRate").value
+                                        = jsonArray[index].fields.carrierRate;
+                        document.getElementById("id_cfsc").value
+                                        = jsonArray[index].fields.cfsc;
+                    }
+                }
+            }
+        });
+
+    </script> 
 
 </html>

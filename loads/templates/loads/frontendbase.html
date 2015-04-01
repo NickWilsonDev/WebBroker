@@ -2,10 +2,11 @@
 
 {% load staticfiles %}
 
+        <link rel="stylesheet" href="{% static 'css/frontend.css' %}">
 <html>
     <head>
         <title>AllPointsBulk</title>
-        <link rel="stylesheet" href="{% static 'css/frontend.css' %}">
+
         <center><h1>All Points Bulk Transport LLC</h1></center>
 
         <nav>
@@ -23,8 +24,10 @@
         </nav>
     </head>
     <body>
+        
         {% block content %}
         {% endblock %}
+        
     </body>
     <center>
     <img src="{% static 'images/VintageCompass2.png' %}" height="150" width="150"/>

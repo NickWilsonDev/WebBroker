@@ -1,0 +1,34 @@
+{% extends 'jobs/brokerHeader.html' %}
+<html>
+    {% block content %}
+
+
+        <h1> {{ job.job_name }} Job Details </h1>    
+        <body>
+        
+            <b>Job Name:</b>  {{ job.job_name }}<br>
+            <b>Commodity:</b>  {{ job.commodity }}<br>
+            <b>Commodity Details:</b>  {{ job.commodity_details }}<br>
+            <b>Shipper:</b>  {{ job.shipper }}<br>
+            <b>Shipper Street Address:</b> {{ job.shipper_street_address }} <br>
+            <b>Origin City:</b> {{ job.origin_city }} <br>
+            <b>Origin State:</b> {{ job.origin_state }} <br>
+            <b>Shipper Number:</b> {{ job.shipperNumber }} <br>
+            <b>Shipper Pickup Hours:</b> {{ job.shipperPickupHours }} <br><br>
+            
+            <b>Reciever:</b> {{ job.reciever }} <br>
+            <b>Reciever Street Address:</b> {{ job.reciever_street_address }} <br>
+            <b>Reciever City:</b> {{ job.reciever_city }} <br>
+            <b>Reciever State:</b> {{ job.reciever_state }} <br>
+            <b>Reciever Number:</b> {{ job.recieverNumber }} <br>
+            <b>Reciever Drop Off Hours:</b> {{ job.recieverDropOffHours }} <br><br>
+
+            <b>Broker Rate:</b> {{ job.brokerRate }} <br>
+            <b>Broker Fuel Surcharge:</b> {{ job.bfsc }} <br>
+            <b>Carrier Rate:</b> {{ job.carrierRate }} <br>
+            <b>Carrier Fuel Surcharge:</b> {{ job.cfsc }} <br><br>
+
+            <a href="/jobEdit/{{ job.pk }}">Edit Job</a>
+        </body>
+    {% endblock content %}
+</html>

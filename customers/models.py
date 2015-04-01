@@ -9,7 +9,7 @@ class Customer(models.Model):
     phone_number = models.CharField("Phone number", max_length=12)
     fax_number   = models.CharField("Fax number", max_length=12, default='', blank=True)
     address      = models.CharField("Address", max_length=40, default='')
-    email_address = models.CharField("Email Address", max_length=30, default='', blank=True)
+    email_address = models.CharField("Email Address", max_length=40, default='', blank=True)
 
 class CustomerForm(ModelForm):
     class Meta:

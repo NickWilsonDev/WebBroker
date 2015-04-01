@@ -12,7 +12,7 @@ class Carrier(models.Model):
     phone_number = models.CharField("Phone number", max_length=12)
     fax_number   = models.CharField("Fax number", max_length=12, blank=True)
     contact_name = models.CharField("Contact name", max_length=20, blank=True)
-    email        = models.CharField("Email address", max_length=20, default='', blank=True)
+    email        = models.CharField("Email address", max_length=40, default='', blank=True)
     address      = models.CharField("Address", max_length=40, default='')
     fed_id       = models.CharField("Federal ID", max_length=10, default='')
     mc_id        = models.CharField("Motor carrier number", max_length=8, default='')

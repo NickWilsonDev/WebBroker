@@ -34,4 +34,9 @@ urlpatterns = patterns('',
     url(r'^loadConfirmation/(?P<pk>[0-9]+)$', 'loads.views.loadConfirm', name='loadConfirm'),
     url(r'^home/$', 'loads.views.home', name='home'),
 
+    url(r'^newJob/$', 'jobs.views.newJob', name='newJob'),
+    url(r'^jobList/$', 'jobs.views.listJobs', name='listJobs'),
+    url(r'^jobDetail/(?P<pk>[0-9]+)/$', 'jobs.views.jobDetail', name='jobDetail'),    
+    url(r'^jobEdit/(?P<pk>[0-9]+)$', 'jobs.views.jobEdit', name='jobEdit'),
+
 )

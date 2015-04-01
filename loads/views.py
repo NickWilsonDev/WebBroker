@@ -4,10 +4,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 
+# jsonify stuff###############
+from django.core import serializers
+#############################
 from models import Load, LoadForm
+from jobs.models import Job
+
 import datetime
 
 # Create your views here.
+# 
+
 def index(request):
     return render_to_response('loads/index.html')
 
@@ -129,6 +136,11 @@ def user_logout(request):
 
 @login_required
 def newLoad(request):
+
+    jobs = Job.objects.all()
+####### serialize jobs queryset to json object and then pass that to template
+    jobs = serializers.serialize('json', jobs)
+
     if request.method == "POST":
         form = LoadForm(request.POST)
         if form.is_valid():
@@ -141,7 +153,8 @@ def newLoad(request):
             print form.errors
     else:
         form = LoadForm()
-    return render(request, 'loads/newLoad.html', {'form': form})
+
+    return render(request, 'loads/newLoad.html', {'form': form, 'jobs': jobs})
 
 @login_required
 def loadEdit(request, pk):

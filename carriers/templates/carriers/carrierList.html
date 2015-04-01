@@ -11,12 +11,28 @@
         <a href="/newLoad/">Add Load</a>                                        
         <a href="/home/">Home</a> 
     </header>
-    
-    <h1> Carrier List </h1>
+    <center>
+        <h1> Carrier List </h1>
+    </center>
+    <table style="width:100%">
+    <tr>
+        <b>
+            <th>Company</th>
+            <th>Phone Number</th>
+            <th>Contact</th>
+        </b>
+    </tr>
     {% for carrier in carriers %}
-        <a href="/carrierDetail/{{ carrier.pk }}">{{ carrier.company_name }}</a>
-        <br>
-
+    <tr>
+        <th>
+            <a href="/carrierDetail/{{ carrier.pk }}">{{ carrier.company_name }}</a>
+        </th>
+        <th>
+            {{ carrier.phone_number }}
+        </th>
+        <th>
+            {{ carrier.contact_name }}
+        </th>
+    </tr>
     {% endfor %}
-
 </html>
