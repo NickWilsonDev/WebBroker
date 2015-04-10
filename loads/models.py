@@ -43,7 +43,7 @@ class Load(models.Model):
 
     customer = models.CharField("Customer", max_length=40, default="")
 
-    carrier = models.CharField("Carrier", max_length=40, default="")
+    carrier = models.CharField("Carrier", max_length=40, blank=True, null=True) # default="")
     job = models.CharField("Job", max_length=40, default="", blank=True, null=True)
 
     date = models.DateField(blank=False, help_text="Date load will appear in application")
@@ -76,6 +76,7 @@ class LoadForm(ModelForm, Form):
 
         CARRIER_CHOICES = Carrier.objects.all()
         carrList = []
+        carrList.append([('None'), ('None')])
         for carrier in CARRIER_CHOICES:
             tempTuple = [(carrier.company_name), (carrier.company_name)]
             carrList.append(tempTuple)
