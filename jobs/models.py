@@ -37,10 +37,10 @@ class Job(models.Model):
 
 
     brokerRate = models.DecimalField(max_digits=7, decimal_places=2)            
-    bfsc = models.DecimalField(max_digits=2, decimal_places=2, default=0.0)     
+    bfsc = models.DecimalField(max_digits=2, decimal_places=2, default=0)     
                                                                                 
     carrierRate = models.DecimalField(max_digits=7, decimal_places=2)           
-    cfsc = models.DecimalField(max_digits=2, decimal_places=2, default=0.0)     
+    cfsc = models.DecimalField(max_digits=2, decimal_places=2, default=0)     
 
 
 class JobForm(ModelForm, Form):
