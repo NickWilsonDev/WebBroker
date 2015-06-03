@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'carriers',
     'jobs',
     'loads',
+    #'gallery',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -87,3 +88,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 STATIC_URL = '/static/'
+
+# Media files (user uploaded files jpegs ect)
+# http://timmyomahony.com/blog/static-vs-media-and-root-vs-path-in-django/
+ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')

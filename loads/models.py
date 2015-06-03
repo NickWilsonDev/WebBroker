@@ -39,11 +39,13 @@ class Load(models.Model):
     recieverNumber = models.CharField("Reciever Phone Number", max_length=12, null=True, blank=True)
     recieverDropOffHours= models.CharField("Available Drop off Times", max_length=20, null=True, blank=True)
    
-    special_instructions = models.CharField("Special Instructions/Reference Numbers", max_length=40, blank=True, null=True)
+    special_instructions = models.CharField("Special Instructions/Reference Numbers", max_length=100, blank=True, null=True)
 
     customer = models.CharField("Customer", max_length=40, default="")
 
     carrier = models.CharField("Carrier", max_length=40, blank=True, null=True) # default="")
+    carrierFax = models.CharField("Carrier Fax", max_length=11, blank=True, null=True)
+    
     job = models.CharField("Job", max_length=40, default="", blank=True, null=True)
 
     date = models.DateField(blank=False, help_text="Date load will appear in application")
@@ -68,13 +70,13 @@ class LoadForm(ModelForm, Form):
 
     def __init__(self, *args, **kwargs):
         super(LoadForm, self).__init__(*args, **kwargs)
-        CUSTOMER_CHOICES = Customer.objects.all()
+        CUSTOMER_CHOICES = Customer.objects.order_by('company_name') #.all() #.order_by('company_name')
         custList = []
         for customer in CUSTOMER_CHOICES:
             tempTuple = [(customer.company_name), (customer.company_name)]
             custList.append(tempTuple)
 
-        CARRIER_CHOICES = Carrier.objects.all()
+        CARRIER_CHOICES = Carrier.objects.order_by('company_name') #all()
         carrList = []
         carrList.append([('None'), ('None')])
         for carrier in CARRIER_CHOICES:
@@ -92,6 +94,7 @@ class LoadForm(ModelForm, Form):
         self.fields['customer'] = forms.CharField(widget=forms.Select(choices=custList))
         self.fields['carrier'] = forms.CharField(widget=forms.Select(choices=carrList))
         self.fields['job'] = forms.CharField(widget=forms.Select(choices=jobList))
+        #self.fields['carrierFax'] = [carrList[1] for x in carrList]
 
     class Meta:
         model = Load

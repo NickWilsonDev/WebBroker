@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('carriers', '0005_auto_20150119_0002'),
+        ('loads', '0005_auto_20150410_1451'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='carrier',
-            name='contact_name',
-            field=models.CharField(max_length=20, verbose_name=b'Contact name', blank=True),
+        migrations.AddField(
+            model_name='load',
+            name='carrierFax',
+            field=models.CharField(max_length=11, null=True, verbose_name=b'Carrier Fax', blank=True),
             preserve_default=True,
         ),
     ]

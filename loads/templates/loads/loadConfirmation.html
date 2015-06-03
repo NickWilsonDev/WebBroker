@@ -26,96 +26,96 @@
         <b>AllPointsBulk Pay Number:</b> {{ load.pk }} <br>
 
         <table border="1">
-        <b>Shipper</b> <br>
+        <tr>
+            <th>
+                <b>Shipper</b> 
+            </th>
+            <th>
+                <b>Reciever</b>
+            </th>
+        </tr>
             <tr>  
                 <th>
-                    <b>Pickup Date:</b> {{ load.pickupDate }} <br>
+                    <b>Pickup Date:</b> {{ load.pickupDate }}
                 </th>
+
+                <th>
+                    <b>Destination Date:</b> {{ load.recieveDate }}
+                </th>
+
             </tr>  
             <tr> 
                 <th>
-                    <b>Shipper:</b> {{ load.shipper }} <br>
+                    <b>Shipper:</b> {{ load.shipper }} 
                 </th>
-            </tr>
-            <tr>
-                <th>
-                    <b>Street Address:</b> {{ load.shipper_street_address }} <br>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <b>City, State:</b> {{ load.origin_city }}, {{ load.origin_state }} <br>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <b>Shipper Phone Number:</b> {{ load.shipperNumber }} <br>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <b>Special Pickup Times:</b> {{ load.shipperPickupHours }} <br>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <b>Commodity:</b> {{ load.commodity }} <br>
-                    <b>Details:</b> {{ load.commodity_details }}
-                </th>   
-            </tr>
-            </table>
 
-            <br><br>
-            <b>Reciever</b><br>
-            <table border="1">
-            <tr>
-                <th>
-                    <b>Destination Date:</b> {{ load.recieveDate }}   <br>
-                </th>
-            </tr>
-            <tr>
                 <th>
                     <b>Reciever:</b> {{ load.reciever }} <br>
                 </th>
+
             </tr>
             <tr>
+                <th>
+                    <b>Street Address:</b> {{ load.shipper_street_address }}
+                </th>
+
                 <th>
                     <b>Street Address:</b> {{ load.reciever_street_address }} <br>
                 </th>
+
             </tr>
             <tr>
+                <th>
+                    <b>City, State:</b> {{ load.origin_city }}, {{ load.origin_state }} 
+                </th>
+
                 <th>
                     <b>City, State:</b> {{ load.reciever_city }}, {{ load.reciever_state }} <br>
                 </th>
+
             </tr>
             <tr>
                 <th>
-                    <b>Reciever Phone Number:</b> {{ load.recieverNumber }} <br>
+                    <b>Shipper Phone Number:</b> {{ load.shipperNumber }} 
+                </th>
+
+                <th>
+                    <b>Reciever Phone Number:</b> {{ load.recieverNumber }} 
+                </th>
+
+            </tr>
+            <tr>
+               <th> 
+                    <b>Special Pickup Times:</b> {{ load.shipperPickupHours }}
+               </th>
+
+                <th>
+                    <b>Special Droppoff Times:</b> {{ load.recieverDropOffHours }}
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <b>Commodity:</b> {{ load.commodity }}
+                    <b>Details:</b> {{ load.commodity_details }}
+                </th>   
+                <th>
+                    <b>Carrier Company:</b> {{ load.carrier }}
                 </th>
             </tr>
             <tr>
                 <th>
-                    <b>Special Droppoff Times:</b> {{ load.recieverDropOffHours }} <br>
+                    <b>Rate:</b> ${{ load.carrierRate }}
                 </th>
             </tr>
             <tr>
                 <th>
-                    <b>Carrier Company:</b> {{ load.carrier }} <br>
+                    <b>Percent:</b> {{ load.carrierPercent }}% 
                 </th>
             </tr>
             <tr>
                 <th>
-                    <b>Rate:</b> ${{ load.carrierRate }} <br>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <b>Percent:</b> {{ load.carrierPercent }}% <br>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <b>CFSC:</b> {{ load.cfsc }}% <br>
+                    <b>CFSC:</b> {{ load.cfsc }}%
                 </th>
             
             </tr>
@@ -124,6 +124,7 @@
                     <b>Special Instructions:</b> {{ load.special_instructions }} <br>
                 </th>
             </tr>
+
             </table>
         </center>
     </body>
