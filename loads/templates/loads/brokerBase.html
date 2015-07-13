@@ -42,6 +42,9 @@
                     Load Number Confirmation
                 </th>
                 <th>
+                    Load Billed
+                </th>
+                <th>
                     Date
                 </th>
                 <th>
@@ -72,6 +75,14 @@
                     <a href="/loadDelete/{{ load.pk }}">
                         <img src="{% static 'images/trash.png' %}"/>
                     </a>
+                </td>
+                <td>
+                    {% if load.loadBilled %}
+                        <img src="{% static 'images/greencircle.png' %}" />
+                    {% else %}
+                        <img src="{% static 'images/redcircle.png' %}" />
+                    {% endif %}
+
                 </td>
                 <td>
                     {{ load.date }}
@@ -132,7 +143,7 @@
     <b>Search Loads by Origin State</b><br>
     <form action="/listLoads/" method="post">
         {% csrf_token %}
-        <b>Origin City: </b>
+        <b>Origin State: </b>
         <input type="text" name="originState">
         <input type="submit" value="Search">
     </form>
@@ -140,9 +151,33 @@
     <b>Search Loads by Destination State</b><br>
     <form action="/listLoads/" method="post">
         {% csrf_token %}
-        <b>Origin City: </b>
+        <b>Destination State: </b>
         <input type="text" name="destState">
         <input type="submit" value="Search">
+    </form>
+
+    <b>Search Loads by Customer</b><br>
+    <form action="/listLoads/" method="post">
+        {% csrf_token %}
+        <b>Customer: </b>
+        <select name="customerName">
+            {% for customer in customerList %}
+                <option value="{{ customer }}"> {{ customer }} </option>
+            {% endfor %}
+        </select>     
+        <input type="submit" value="Search"> 
+    </form>
+
+    <b>Search Loads by Carrier</b><br>
+    <form action="/listLoads/" method="post">
+        {% csrf_token %}
+        <b>Customer: </b>
+        <select name="carrierName">
+            {% for carrier in carrierList %}
+                <option value="{{ carrier }}"> {{ carrier }} </option>
+            {% endfor %}
+        </select>     
+        <input type="submit" value="Search"> 
     </form>
 
 </body>

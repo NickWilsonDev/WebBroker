@@ -9,6 +9,8 @@ from django.core import serializers
 #############################
 from models import Load, LoadForm
 from jobs.models import Job
+from customers.models import Customer
+from carriers.models import Carrier
 
 import datetime
 
@@ -87,15 +89,23 @@ def convertDateFormat(date):
     return newdate
 
 def getLoadsByOriginCity(city):
-    loads = Load.objects.filter(origin_city=city).order_by('pk')
+    loads = Load.objects.filter(origin_city__iexact=city).order_by('pk')
     return loads
 
 def getLoadsByOriginState(state):
-    loads = Load.objects.filter(origin_state=state).order_by('pk')
+    loads = Load.objects.filter(origin_state__iexact=state).order_by('pk')
     return loads
 
 def getLoadsByDestinationState(state):
-    loads = Load.objects.filter(reciever_state=state).order_by('pk')
+    loads = Load.objects.filter(reciever_state__iexact=state).order_by('pk')
+    return loads
+
+def getLoadsByCarrier(carrierName):
+    loads = Load.objects.filter(carrier__iexact=carrierName).order_by('pk')
+    return loads
+
+def getLoadsByCustomer(customerName):
+    loads = Load.objects.filter(customer__iexact=customerName).order_by('pk')
     return loads
 
 @login_required
@@ -103,6 +113,27 @@ def listLoads(request):
     """
         These are the basic 'search' functions for use by the user.
     """
+    carrierList = Carrier.objects.order_by('company_name')
+    customerList = Customer.objects.order_by('company_name')
+    carrList = []
+    custList = []
+    for customer in customerList:
+        tempTuple = [(customer.company_name), (customer.company_name)]
+        custList.append(tempTuple)
+    
+    customerList = []
+    customerList = [x[0].encode('utf-8') for x in custList]
+
+    for carrier in carrierList:
+        tempTuple = [(carrier.company_name), (carrier.company_name)]
+        carrList.append(tempTuple)
+    
+    carrierList = []
+    carrierList = [x[0].encode('utf-8') for x in carrList]
+    loads = []
+
+
+
     if 'targetDate' in request.POST:
         targetDate = request.POST['targetDate']
         newdate = convertDateFormat(targetDate)
@@ -116,8 +147,13 @@ def listLoads(request):
     elif 'destState' in request.POST:
         state = request.POST['destState']
         loads = getLoadsByDestinationState(state)
-
-    return render(request, 'loads/listLoads.html', {'loads': loads})
+    elif 'customerName' in request.POST:
+        customerName = request.POST['customerName']
+        loads = getLoadsByCustomer(customerName)
+    elif 'carrierName' in request.POST:
+        carrierName = request.POST['carrierName']
+        loads = getLoadsByCarrier(carrierName)
+    return render(request, 'loads/listLoads.html', {'loads': loads, 'customerList':customerList, 'carrierList':carrierList})
 
 @login_required
 def loadDetail(request, pk):
@@ -145,6 +181,9 @@ def newLoad(request):
         form = LoadForm(request.POST)
         if form.is_valid():
             load = form.save(commit=False)
+            loadCarrier = Carrier.objects.get(company_name = load.carrier)
+            load.carrierFax = loadCarrier.fax_number
+            load.carrierEmail = loadCarrier.email
             load.save()
             today = datetime.date.today()
             loads = getListLoads(today)

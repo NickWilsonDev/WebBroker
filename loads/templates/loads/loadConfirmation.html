@@ -7,11 +7,11 @@
     <Body>
         <center>
             <img src="{% static 'images/VintageCompass2.png' %}" height="80" width="80"/>
-            <h1> All Points Bulk Transport LLC</b></h1>
+            <h2> All Points Bulk Transport LLC</b></h2>
             117 Blackberry Ln<br>
             Fairview, NC 28730<br>
             844.422.2100   FX: 828.628.8020<br>
-            <h1> Dispatch and Load Confirmation Sheet</h1>
+            <h3> Dispatch and Load Confirmation Sheet</h3>
         </center>
         <a href="javascript:window.print()">Print Confirmation Sheet</a>
         <center>
@@ -107,10 +107,16 @@
                 <th>
                     <b>Rate:</b> ${{ load.carrierRate }}
                 </th>
+                <th>
+                    <b>Carrier Fax:</b> {{ load.carrierFax }}
+                </th>
             </tr>
             <tr>
                 <th>
                     <b>Percent:</b> {{ load.carrierPercent }}% 
+                </th>
+                <th>                
+                    <b>Carrier Email:</b> {{ load.carrierEmail }}
                 </th>
             </tr>
             <tr>

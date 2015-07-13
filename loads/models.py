@@ -45,7 +45,7 @@ class Load(models.Model):
 
     carrier = models.CharField("Carrier", max_length=40, blank=True, null=True) # default="")
     carrierFax = models.CharField("Carrier Fax", max_length=11, blank=True, null=True)
-    
+    carrierEmail = models.CharField("Carrier Email", max_length=40, blank=True, null=True) 
     job = models.CharField("Job", max_length=40, default="", blank=True, null=True)
 
     date = models.DateField(blank=False, help_text="Date load will appear in application")
@@ -63,14 +63,14 @@ class Load(models.Model):
 
     loadConfirmed = models.BooleanField("Confirmed", default=False)
 
-# NOT DONE NEED MORE FIELDS AND MAKE A FORM
+    loadBilled = models.BooleanField("Billed", default=False)
 
 
 class LoadForm(ModelForm, Form):
 
     def __init__(self, *args, **kwargs):
         super(LoadForm, self).__init__(*args, **kwargs)
-        CUSTOMER_CHOICES = Customer.objects.order_by('company_name') #.all() #.order_by('company_name')
+        CUSTOMER_CHOICES = Customer.objects.order_by('company_name') 
         custList = []
         for customer in CUSTOMER_CHOICES:
             tempTuple = [(customer.company_name), (customer.company_name)]
@@ -94,7 +94,7 @@ class LoadForm(ModelForm, Form):
         self.fields['customer'] = forms.CharField(widget=forms.Select(choices=custList))
         self.fields['carrier'] = forms.CharField(widget=forms.Select(choices=carrList))
         self.fields['job'] = forms.CharField(widget=forms.Select(choices=jobList))
-        #self.fields['carrierFax'] = [carrList[1] for x in carrList]
+
 
     class Meta:
         model = Load
@@ -102,12 +102,13 @@ class LoadForm(ModelForm, Form):
                    'pickupDate': forms.DateInput(attrs={'class': 'datepicker'}),
                    'recieveDate': forms.DateInput(attrs={'class': 'datepicker'})}
 
-        fields = ['date', 'job', 'customer', 'carrier', 'commodity', 
-                  'commodity_details', 'shipper', 'shipper_street_address', 
-                  'origin_city', 'origin_state', 'shipperNumber', 
-                  'shipperPickupHours', 'reciever', 'reciever_street_address', 
-                  'reciever_city', 'reciever_state', 'recieverNumber', 
-                  'recieverDropOffHours', 'special_instructions', 'brokerRate',
-                  'brokerPercent', 'bfsc', 'carrierRate', 'carrierPercent', 
-                  'cfsc', 'pickupDate', 'recieveDate', 'loadConfirmed']
+        fields = ['date', 'job', 'customer', 'carrier', 
+                  'commodity', 'commodity_details', 'shipper',
+                  'shipper_street_address', 'origin_city', 'origin_state', 
+                  'shipperNumber', 'shipperPickupHours', 'reciever', 
+                  'reciever_street_address', 'reciever_city', 'reciever_state',
+                  'recieverNumber', 'recieverDropOffHours', 
+                  'special_instructions', 'brokerRate', 'brokerPercent', 
+                  'bfsc', 'carrierRate', 'carrierPercent', 'cfsc', 
+                  'pickupDate', 'recieveDate', 'loadConfirmed', 'loadBilled']
     

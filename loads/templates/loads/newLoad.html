@@ -19,6 +19,11 @@
     </form>
 
     <script type="text/javascript">
+        /*
+         * This Script watches the id_job element. Upon it being changed the
+         * script populates many elements in the form in order to save the user
+         * time.
+         */
         $("#id_job").on('change', function() {
 
             var jobName = $("#id_job").val();
