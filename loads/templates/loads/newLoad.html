@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -30,8 +29,6 @@
             var jsonArray = {{ jobs|safe }}; 
             
             if (jobName != "None") {
-                //alert("Handler for id_job called " + jobName);
-                //alert(jsonArray[0].fields.job_name );
                 var index;
                 for ( index = 0; index < jsonArray.length; index++) {
                     if (jsonArray[index].fields.job_name == jobName) {
@@ -39,7 +36,6 @@
                                         = jsonArray[index].fields.commodity;
                         document.getElementById("id_commodity_details").value
                                         = jsonArray[index].fields.commodity_details;
-                        
                         
                         document.getElementById("id_shipper").value
                                         = jsonArray[index].fields.shipper;
@@ -94,7 +90,5 @@
                 }
             }
         });
-
     </script> 
-
 </html>

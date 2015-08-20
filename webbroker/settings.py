@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'carriers',
     'jobs',
     'loads',
-    #'gallery',
+    'Gallery',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -84,12 +84,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-STATIC_URL = '/static/'
 
 # Media files (user uploaded files jpegs ect)
-# http://timmyomahony.com/blog/static-vs-media-and-root-vs-path-in-django/
-ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL that handles the media from MEDIA_ROOT
+MEDIA_URL = 'media/'

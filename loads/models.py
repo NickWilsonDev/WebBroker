@@ -2,17 +2,13 @@ from django.db import models
 from django.forms import ModelForm, ChoiceField, Form
 from django.core.exceptions import ValidationError
 from django.core import validators
-
 from django import forms
-
 import datetime
-
 from customers.models import Customer
 from carriers.models import Carrier
 from jobs.models import Job
 
 # Create your models here.
-
 
 class Load(models.Model):
     COMMODITY_CHOICES = (

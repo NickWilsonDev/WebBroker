@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
+from django.conf.urls.static import static
 
 ##############################    
 #if settings.DEBUG:
@@ -22,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^customerContact/$', 'loads.views.customerContact', name='customerContact'),
     url(r'^carrierContact/$', 'loads.views.carrierContact', name='carrierContact'),
     url(r'^missionStatement/$', 'loads.views.missionStatement', name='missionStatement'),
+    
 
 # back end urls
     url(r'^newCustomer/$', 'customers.views.newCustomer', name='newCustomer'),
@@ -47,4 +49,10 @@ urlpatterns = patterns('',
     url(r'^jobDetail/(?P<pk>[0-9]+)/$', 'jobs.views.jobDetail', name='jobDetail'),    
     url(r'^jobEdit/(?P<pk>[0-9]+)$', 'jobs.views.jobEdit', name='jobEdit'),
 
-)
+    url(r'^imageGallery/$', 'Gallery.views.gallery', name='backgallery'),
+    url(r'^addImage/$', 'Gallery.views.addImage', name='addImage'),
+    url(r'^listImages/$', 'Gallery.views.listImages', name='listImages'),
+    url(r'^imageEdit/(?P<pk>[0-9]+)$', 'Gallery.views.imageEdit', name='imageEdit'),
+    url(r'^imageDelete/(?P<pk>[0-9]+)$', 'Gallery.views.imageDelete', name='imageDelete'),
+
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -15,26 +15,43 @@ from carriers.models import Carrier
 import datetime
 
 # Create your views here.
-# 
 
 def index(request):
+    """
+        View simply renders the index.html document.
+    """
     return render_to_response('loads/index.html')
 
 def about(request):
+    """
+        View renders the about page.
+    """
     return render_to_response('loads/about.html')
 
 def missionStatement(request):
+    """
+        View renders the mission statement page.
+    """
     return render_to_response('loads/missionStatement.html')
 
 def customerContact(request):
+    """
+        View renders the customerContact page.
+    """
     return render_to_response('loads/customerContact.html')
 
 def carrierContact(request):
+    """
+        View renders the carrier contact page.
+    """
     return render_to_response('loads/carrierContact.html')
 
 ###### view for user login #########
 def user_login(request):
-
+    """
+        View renders the login page and provides the logic to authenticate the
+        user.
+    """
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
         # Gather the username and password provided by the user.
@@ -57,7 +74,9 @@ def user_login(request):
                 login(request, user)
                 today = datetime.date.today()
                 loads = getListLoads(today)
-                return render(request, 'loads/broker.html', {'loads': loads})
+                customerList = getCustomerList()
+                carrierList = getCarrierList()
+                return render(request, 'loads/broker.html', {'loads': loads, 'customerList': customerList, 'carrierList': carrierList})
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your AllPoints account is disabled.")
@@ -75,6 +94,14 @@ def user_login(request):
 
 
 def getListLoads(theday):
+    """
+        Function queries the Load table and returns a list of loads based on
+        the date given as a parameter.
+        @param
+            theday - a date
+        @return
+            loads - a list of load objects
+    """
     loads = Load.objects.filter(date=theday).order_by('pk')
     return loads
 
@@ -108,31 +135,48 @@ def getLoadsByCustomer(customerName):
     loads = Load.objects.filter(customer__iexact=customerName).order_by('pk')
     return loads
 
+
+def getCustomerList():
+    """
+        Function returns a list of tuples that contain the customer's companies
+        names.
+        @return
+            customerList - list of tuples of the customer's company names.
+    """
+    customerList = Customer.objects.order_by('company_name')
+    custList = []
+    for customer in customerList:
+        tempTuple = [(customer.company_name), (customer.company_name)]
+        custList.append(tempTuple)
+    customerList = []
+    customerList = [x[0].encode('utf-8') for x in custList]
+    return customerList
+
+def getCarrierList():
+    """
+        Function returns a list of tuples that contain the carrier's companies
+        names.
+        @return
+            carrierList - list of tuples of the carrier's company names.
+    """
+    carrierList = Carrier.objects.order_by('company_name')
+    carrList = []
+    for carrier in carrierList:
+        tempTuple = [(carrier.company_name), (carrier.company_name)]
+        carrList.append(tempTuple)
+    carrierList = []
+    carrierList = [x[0].encode('utf-8') for x in carrList]
+    return carrierList
+
+
 @login_required
 def listLoads(request):
     """
         These are the basic 'search' functions for use by the user.
     """
-    carrierList = Carrier.objects.order_by('company_name')
-    customerList = Customer.objects.order_by('company_name')
-    carrList = []
-    custList = []
-    for customer in customerList:
-        tempTuple = [(customer.company_name), (customer.company_name)]
-        custList.append(tempTuple)
-    
-    customerList = []
-    customerList = [x[0].encode('utf-8') for x in custList]
-
-    for carrier in carrierList:
-        tempTuple = [(carrier.company_name), (carrier.company_name)]
-        carrList.append(tempTuple)
-    
-    carrierList = []
-    carrierList = [x[0].encode('utf-8') for x in carrList]
+    customerList = getCustomerList()
+    carrierList = getCarrierList()
     loads = []
-
-
 
     if 'targetDate' in request.POST:
         targetDate = request.POST['targetDate']
@@ -205,13 +249,13 @@ def loadEdit(request, pk):
             load.save()
             return render(request, 'loads/loadDetail.html', {'load':load})
     else:
-        form = LoadForm(instance=load) #instance=post before in ()
+        form = LoadForm(instance=load) 
     return render(request, 'loads/loadEdit.html', {'form': form})
 
 
 @login_required
 def loadDelete(request, pk):
     load = get_object_or_404(Load, pk=pk)
-    loads = getListLoads(load.date)#targetDate)
+    loads = getListLoads(load.date)
     load.delete()
     return render(request, 'loads/listLoads.html', {'loads': loads})

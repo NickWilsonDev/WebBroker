@@ -11,7 +11,9 @@
         <a href="/newJob/">Add Job</a> &nbsp; &nbsp;
 
         <a href="/newLoad/">Add Load</a>
-        <a href="/home/">Home</a>
+        <a href="/home/">Home</a> &nbsp; &nbsp;
+        <a href="/imageGallery/">Gallery</a>
+        <a href="/addImage/">Add Image</a>
     </header>
 
     <head>
@@ -22,8 +24,8 @@
     </head> 
    
     {% if user.is_authenticated %}
-        <h1> Hello {{ user.username }}!</h1>
-        <h1> Current Date  
+        <h3> Hello {{ user.username }}!</h3>
+        <h3> Current Date  
                 <script language="javascript">
                     var today = new Date();
                     var day = today.getDate();
@@ -32,7 +34,7 @@
                     document.write(month + "/" + day + "/" + year);
                 </script>
                 <br></br>
-        </h1>
+        </h3>
 
         {% if loads %}
             <a href="javascript:window.print()">Print Dispatch Sheet</a>

@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-
 {% load staticfiles %}
-
         <link rel="stylesheet" href="{% static 'css/frontend.css' %}">
 <html>
     <head>
         <title>AllPointsBulk</title>
-
-        <center><h1>All Points Bulk Transport LLC</h1></center>
-
+        <center><h3>All Points Bulk Transport LLC</h3></center>
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
@@ -20,14 +16,13 @@
                     </ul>
                 </li>
                 <li><a href="/missionStatement">Mission Statement</a></li>
+                <li><a href="/imageGallery">Gallery</a></li>
                 <li><a href="/login/">Login</a></li>
         </nav>
     </head>
     <body>
-        
         {% block content %}
         {% endblock %}
-        
     </body>
     <center>
     <img src="{% static 'images/VintageCompass2.png' %}" height="150" width="150"/>
