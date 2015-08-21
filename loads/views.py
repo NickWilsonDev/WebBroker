@@ -107,15 +107,35 @@ def getListLoads(theday):
 
 @login_required
 def home(request):
+    """
+        Function gets the current date and then lists all loads that take
+        place on the the current date. It then renders the basic listLoads.html
+        template with the appropriate loads data.
+    """
     today = datetime.date.today()
     loads = getListLoads(today)
     return render(request, 'loads/listLoads.html', {'loads': loads})
 
 def convertDateFormat(date):
+    """
+        Function converts date string to the correct format and returns it.
+        @param
+            date - a string representing the date
+        @returns
+            newdate - a string with the correct format of the date
+    """
     newdate = datetime.datetime.strptime(date, '%m/%d/%Y').strftime('%Y-%m-%d')
     return newdate
 
 def getLoadsByOriginCity(city):
+    """
+        Function queries the database for all loads that begin in the city that
+        is given in the parameter.
+        @param
+            city - String that represents the origin city for a load
+        @returns
+            loads - all loads that begin in the city given by the parameter
+    """ 
     loads = Load.objects.filter(origin_city__iexact=city).order_by('pk')
     return loads
 
