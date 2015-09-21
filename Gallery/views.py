@@ -26,7 +26,6 @@ def addImage(request):
         if form.is_valid():
             gallery = form.save(commit=False)
             gallery.save()
-            print gallery.image
             create_thumbnail_from_image_field(gallery.image, gallery.thumbnail, 200, 200)
             gallery.save()
             images = Gallery.objects.order_by('pk')
@@ -74,6 +73,5 @@ def imageDelete(request, pk):
     """
     image = get_object_or_404(Gallery, pk=pk)
     image.delete()
-    print pk
     images = Gallery.objects.order_by('pk')
     return render(request, 'Gallery/listImages.html', {'images': images})
