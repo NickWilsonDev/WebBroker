@@ -79,7 +79,7 @@ class LoadForm(ModelForm, Form):
             tempTuple = [(carrier.company_name), (carrier.company_name)]
             carrList.append(tempTuple)
        
-        JOB_CHOICES = Job.objects.all()
+        JOB_CHOICES = Job.objects.order_by('job_name')#all()
         jobList = []
         jobList.append([('None'), ('None')])
         for job in JOB_CHOICES:

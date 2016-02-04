@@ -11,10 +11,30 @@
         </script>
     </head>
 
+   <header>                                                                    
+        <a href="/logout/">Logout</a>                                           
+        <a href="/newCustomer/">Add Customer</a>                                
+        <a href="/customerList/">Customer List</a>                              
+        <a href="/newCarrier/">Add Carrier</a>                                  
+        <a href="/carrierList/">CarrierList</a>                                 
+        <a href="/newLoad/">Add Load</a>                                        
+        <a href="/home/">Home</a>                                               
+    </header>    
+
     <h1> Add New Load </h1>
     <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-defualt">Save</button>
+        <table>
+            <tr>
+                <td>
+                {{ form.as_p }}
+                </td>
+                <td>
+                    <center>   
+                    <button type="submit" class="save btn btn-defualt">Save</button>
+                    </center>
+                </td>
+            </tr>
+        </table>
     </form>
 
     <script type="text/javascript">

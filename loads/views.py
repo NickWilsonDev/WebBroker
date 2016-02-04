@@ -237,9 +237,12 @@ def user_logout(request):
 @login_required
 def newLoad(request):
 
-    jobs = Job.objects.all()
+    jobs = Job.objects.order_by('job_name') #all()
+    print jobs
+    print "+++++++++++++++++++++++++++++++++++++++++++++++++++++"
 ####### serialize jobs queryset to json object and then pass that to template
     jobs = serializers.serialize('json', jobs)
+    print jobs
 
     if request.method == "POST":
         form = LoadForm(request.POST)
