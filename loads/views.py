@@ -114,7 +114,14 @@ def home(request):
     """
     today = datetime.date.today()
     loads = getListLoads(today)
-    return render(request, 'loads/listLoads.html', {'loads': loads})
+
+    customerList = getCustomerList()
+    carrierList = getCarrierList()
+    loads = []
+
+    return render(request, 'loads/listLoads.html', {'loads': loads, 'customerList':customerList, 'carrierList':carrierList})
+    #return render(request, 'loads/listLoads.html', {'loads': loads})
+
 
 def convertDateFormat(date):
     """

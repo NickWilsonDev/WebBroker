@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+    <header>
+        <a href="/logout/">Logout</a>                                           
+        <a href="/newCustomer/">Add Customer</a>                                
+        <a href="/customerList/">Customer List</a>                              
+        <a href="/newCarrier/">Add Carrier</a>                                  
+        <a href="/carrierList/">CarrierList</a>                                 
+        <a href="/newLoad/">Add Load</a>                                        
+        <a href="/home/">Home</a>                                               
+    </header>                                                                   
+    <center>                                                                    
+        <h1>DashBoard</h1>                                                 
+    </center>
+
+    <body>
+        {% for load in loadsByCommodity %}
+            <tr>
+                {{ load.commodity }} {{ load.commodity__count }}
+            </tr>
+        {% endfor %}
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+
+        <div id="dashPanel">
+            <div id="allLoadsByCommodityPie" class="panel-body"
+                style="width:33%; height:314px; display: inline-block"></div>
+            <div id="allLoadsByCarrierPie" class="panel-body"
+                style="width:33%; height:314px; display: inline-block"></div>
+            <div id="allLoadsByCustomerPie" class="panel-body"
+                style="width:33%; height:314px; display: inline-block"></div>
+            <div id="allLoadsOverTimeColumn" class="panel-body"
+                styel="width:100%; height:400px;"></div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var allLoadsByCommodityPieChart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'allLoadsByCommodityPie',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Loads by commodity'
+                    },
+                    tooltip: {
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    series:[{
+                        type: 'pie',
+                        data: [
+                            {% for load in loadsByCommodity %}
+                            {   
+                                name: '{{load.commodity}}',
+                                y: parseInt('{{ load.commodity__count }}')
+                            },
+                            {% endfor %}
+                            ]
+                    }]
+                });
+                //////////////////////////////////////////////////////
+                var allLoadsByCarrierPieChart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'allLoadsByCarrierPie',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Loads by Carrier'
+                    },
+                    tooltip: {
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    series:[{
+                        type: 'pie',
+                        data: [
+                                {% for load in loadsByCarrier %}
+                                {   
+                                    name: '{{load.carrier}}',
+                                    y: parseInt('{{ load.carrier__count }}')
+                                },
+                                {% endfor %}
+                            ]
+                    }]
+                });
+                ////////////////////////////////
+                var allLoadsByCustomerPieChart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'allLoadsByCustomerPie',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Loads by Customer'
+                    },
+                    tooltip: {
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    series:[{
+                        type: 'pie',
+                        data: [
+                                {% for load in loadsByCustomer %}
+                                {   
+                                    name: '{{load.customer}}',
+                                    y: parseInt('{{ load.customer__count }}')
+                                },
+                                {% endfor %}
+                            ]
+                    }]
+                });
+                /////////////////////////////////////////////////////
+                var allLoadsOverTimeColumnChart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'allLoadsOverTimeColumn',
+                        type: 'column',
+                        zoomType: 'xy'
+                    },
+                    title: {
+                        text: 'Loads Over Time'
+                    },
+                    subtitle: {
+                        text: 'Select area to zoom in, click Reset to reset zoom'
+                    },
+                    tooltip: {
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0.5
+                        }
+                    },
+                    scrollbar: {
+                        enabled: true
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        lables: {
+                            formatter: function() {
+                                return Highcharts.dateFormat('%a %d %b', this.value);
+                            }
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Loads'
+                        },
+                        min: 0
+                    },
+                    series:[{
+                        {% for load in loadsOverTime %}
+                        data: [{
+                                name: '{{ load.commodity }}',
+                                data: Number(Date.parse('{{ load.date }}'))
+                            }],
+                            {% endfor %}
+                            pointStart: Date.UTC(2015, 0, 1),
+                            pointInterval: 24 * 3600 * 1000
+                    }]
+                });
+
+
+            });
+        </script>
+
+    </body>
+</html>

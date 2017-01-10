@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'jobs',
     'loads',
     'Gallery',
+    'dashboard',
     )
 
 MIDDLEWARE_CLASSES = (

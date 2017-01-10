@@ -27,6 +27,14 @@
 
         <b>Number of Trucks:</b>  {{ carrier.number_trucks }}<br>
         
+        <b>General Insurance Liability:</b> {{ carrier.general_ins_date }} <br>
+        <b>Auto Liability:</b> {{ carrier.auto_ins_date }} <br>
+        <b>Workers Compensation Liability:</b> {{ carrier.workerscomp_ins_date }} <br>
+        <b>Workers Compensation Waiver:</b> {{ carrier.workerscomp_waiver }} <br>
+        <b>Cargo Insurance:</b> {{ carrier.cargo_ins_date }} <br>
+        <b>Cargo Insurance Amount:</b> {{ carrier.cargo_ins_amount }} <br>
+
+
         <a href="/carrierEdit/{{ carrier.pk }}">Edit Carrier</a>
     </body>
 

@@ -54,5 +54,6 @@ urlpatterns = patterns('',
     url(r'^listImages/$', 'Gallery.views.listImages', name='listImages'),
     url(r'^imageEdit/(?P<pk>[0-9]+)$', 'Gallery.views.imageEdit', name='imageEdit'),
     url(r'^imageDelete/(?P<pk>[0-9]+)$', 'Gallery.views.imageDelete', name='imageDelete'),
-
+    
+    url(r'^dashboard/$', 'dashboard.views.dashboardBase', name='dashboardBase'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
