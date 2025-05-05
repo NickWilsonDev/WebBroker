@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+    <header>
+        <a href="/logout/">Logout</a>                                           
+        <a href="/newCustomer/">Add Customer</a>                                
+        <a href="/customerList/">Customer List</a>                              
+        <a href="/newCarrier/">Add Carrier</a>                                  
+        <a href="/carrierList/">CarrierList</a>                                 
+        <a href="/newLoad/">Add Load</a>                                        
+        <a href="/home/">Home</a> 
+    </header>
+
+    <h1> {{ customer.company_name }} Customer Detail </h1>
+    <body>
+        <b>Company Name:</b> {{ customer.company_name }} <br>
+        <b>Contact Name:</b> {{ customer.contact_name }} <br>
+        <b>Phone Number:</b> {{ customer.phone_number }} <br>
+        <b>Fax Number:</b> {{ customer.fax_number }} <br>
+        <b>Address:</b> {{ customer.address }} <br>
+        <b>Email Address:</b> {{ customer.email_address }} <br>
+
+        <a href="/customerEdit/{{ customer.pk }}">Edit Customer</a>
+    </body>
+
+
+</html>

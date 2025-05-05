@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <a href="/logout/">Logout</a>
+        <a href="/newCustomer/">Add Customer</a>
+        <a href="/customerList/">Customer List</a>
+        <a href="/newCarrier/">Add Carrier</a>
+        <a href="/carrierList/">CarrierList</a>
+        <a href="/newLoad/">Add Load</a>
+        <a href="/home/">Home</a>
+    </header>
+
+    <h1> {{ load.pk }} Load Details </h1>
+    <body>
+        <ul style="list-style-type:disc">
+
+            <li><b>Date in Application:</b> {{ load.date }}</li>
+            <li><b>Customer:</b> {{ load.customer }}</li>
+            <li><b>Carrier:</b> {{ load.carrier }}</li>  
+            <li><b>Commodity:</b> {{ load.commodity }}</li>
+            <li><b>Commodity Details:</b> {{ load.commodity_details }}</li>
+            <br>
+            <li><b>Shipper:</b> {{ load.shipper }}</li> 
+            
+            
+            <li><b>Street Address:</b> {{ load.shipper_street_address }}</li> 
+            <li><b>Origin City/State:</b> {{ load.origin_city }} {{ load.origin_state }}</li> 
+            <li><b>Pickup Date:</b> {{ load.pickupDate }}</li> 
+            <br>
+            <li><b>Reciever:</b> {{ load.reciever }}</li> 
+
+            <li><b>Street Address:</b> {{ load.reciever_street_address }}</li> 
+            <li><b>Destination City/State:</b> {{ load.reciever_city }} {{ load.reciever_state }}</li> 
+            <li><b>Deliver Date:</b> {{ load.recieveDate }}</li> 
+            <li><b>Special Instructions:</b> {{ load.special_instructions }}</li> 
+            <br>
+
+            <li><b>Broker Rate:</b> ${{ load.brokerRate }}</li> 
+            <li><b>Broker Percent:</b> {{ load.brokerPercent }}%</li> 
+            <li><b>Broker Fuel Surcharge:</b> {{ load.bfsc }}%</li> 
+            <br>
+            <li><b>Carrier Rate:</b> ${{ load.carrierRate }}</li> 
+            <li><b>Carrier Percent:</b> {{ load.carrierPercent }}%</li> 
+            <li><b>Carrier Fuel Surcharge:</b> {{ load.cfsc }}%</li> 
+            <br>
+
+            <li><b>Is Load Confirmed:</b> {{ load.loadConfirmed }}</li> 
+        </ul><br>
+       <a href="/loadEdit/{{ load.pk }}">Edit Load</a>
+       <a href="/loadConfirmation/{{ load.pk }}">Load Confirmation</a>
+    </body>
+</html>

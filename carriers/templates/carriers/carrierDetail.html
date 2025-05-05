@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+    <header>
+        <a href="/logout/">Logout</a>                                           
+        <a href="/newCustomer/">Add Customer</a>                                
+        <a href="/customerList/">Customer List</a>                              
+        <a href="/newCarrier/">Add Carrier</a>                                  
+        <a href="/carrierList/">CarrierList</a>                                 
+        <a href="/newLoad/">Add Load</a>                                        
+        <a href="/home/">Home</a> 
+    </header>
+
+    <h1> {{ carrier.company_name }} Carrier Details </h1>    
+    <body>
+        
+        <b>Company Name:</b>  {{ carrier.company_name }}<br>
+        <b>Phone Number:</b>  {{ carrier.phone_number }}<br>
+        <b>Fax Number:</b>  {{ carrier.fax_number }}<br>
+        <b>Contact Name:</b>  {{ carrier.contact_name }}<br>
+        <b>Email:</b>  {{ carrier.email }}<br>
+        <b>Address:</b>  {{ carrier.address }}<br><br>
+
+        <b>Federal Id:</b>  {{ carrier.fed_id }}<br>
+        <b>MotorCarrier Id:</b>  {{ carrier.mc_id }}<br><br>
+
+        <b>Number of Trucks:</b>  {{ carrier.number_trucks }}<br>
+        
+        <b>General Insurance Liability:</b> {{ carrier.general_ins_date }} <br>
+        <b>Auto Liability:</b> {{ carrier.auto_ins_date }} <br>
+        <b>Workers Compensation Liability:</b> {{ carrier.workerscomp_ins_date }} <br>
+        <b>Workers Compensation Waiver:</b> {{ carrier.workerscomp_waiver }} <br>
+        <b>Cargo Insurance:</b> {{ carrier.cargo_ins_date }} <br>
+        <b>Cargo Insurance Amount:</b> {{ carrier.cargo_ins_amount }} <br>
+
+
+        <a href="/carrierEdit/{{ carrier.pk }}">Edit Carrier</a>
+    </body>
+
+</html>

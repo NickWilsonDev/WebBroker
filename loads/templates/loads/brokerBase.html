@@ -1,0 +1,189 @@
+    {% load staticfiles %}
+    
+    <header>
+        <a href="/logout/">Logout</a>
+        <a href="/newCustomer/">Add Customer</a>
+        <a href="/customerList/">Customer List</a> &nbsp; &nbsp; &nbsp; &nbsp;
+        <a href="/newCarrier/">Add Carrier</a>
+        <a href="/carrierList/">Carrier List</a>  &nbsp; &nbsp; &nbsp; &nbsp; 
+
+        <a href="/jobList/">Job List</a>
+        <a href="/newJob/">Add Job</a> &nbsp; &nbsp;
+
+        <a href="/newLoad/">Add Load</a>
+        <a href="/home/">Home</a> &nbsp; &nbsp;
+        
+        <a href="/listImages/">Gallery</a>
+        <!--<a href="/imageGallery/">Gallery</a>  -->
+        <a href="/addImage/">Add Image</a>
+        <a href="/dashboard/">DashBoard</a>
+        <a href="http://contactbook.new1983.webfactional.com">Phone Book</a>
+    </header>
+
+    <head>
+<!-- ------- may change to local files  --------------     -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    </head> 
+   
+    {% if user.is_authenticated %}
+        <h3> Hello {{ user.username }}!</h3>
+        <h3> Current Date  
+                <script language="javascript">
+                    var today = new Date();
+                    var day = today.getDate();
+                    var month = today.getMonth() + 1;
+                    var year = today = today.getFullYear();
+                    document.write(month + "/" + day + "/" + year);
+                </script>
+                <br></br>
+        </h3>
+
+        {% if loads %}
+            <a href="javascript:window.print()">Print Dispatch Sheet</a>
+            <table border="1" style="width:75%">
+            <tr>
+                <th>
+                    Load Number Confirmation
+                </th>
+                <th>
+                    Load Billed
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Commodity
+                </th>
+                <th>
+                    Shipper/Origin 
+                </th>
+                <th>
+                    Reciever/Destination
+                </th>
+                <th>
+                    Customer
+                </th>
+                <th>
+                    Carrier
+                </th>
+                    
+            {% for load in loads %}
+            <tr>
+                <td>
+                    <a href="/loadDetail/{{ load.pk }}">Load#{{ load.pk }}</a> 
+                    {% if load.loadConfirmed %}
+                        <img src="{% static 'images/greencircle.png' %}" />
+                    {% else %}
+                        <img src="{% static 'images/redcircle.png' %}" />
+                    {% endif %}
+                    <a href="/loadDelete/{{ load.pk }}">
+                        <img src="{% static 'images/trash.png' %}"/>
+                    </a>
+                </td>
+                <td>
+                    {% if load.loadBilled %}
+                        <img src="{% static 'images/greencircle.png' %}" />
+                    {% else %}
+                        <img src="{% static 'images/redcircle.png' %}" />
+                    {% endif %}
+
+                </td>
+                <td>
+                    {{ load.date }}
+                </td> 
+                <td>
+                    {{ load.commodity }}
+                </td>
+                <td>
+                    {{ load.shipper }} - {{ load.origin_city }}, {{ load.origin_state }}
+                </td>
+
+                <td>
+                    {{ load.reciever }} - {{ load.reciever_city }}, {{ load.reciever_state }}
+                </td>
+
+                <td>
+                    {{ load.customer }}
+                </td>
+
+                <td>
+                    {{ load.carrier }}
+                </td>
+            </tr>        
+            {% endfor %}
+            </table>
+        {% else %}
+            <h1> No loads yet for today </h1>
+        {% endif %}
+    {% else %}
+        <h1> You really should be logged in!!!!</h1>
+    {% endif %}
+
+
+<body>
+     <br>
+<!-- search features -->
+     <script>
+        $(document).ready(function() {
+            $("#datepick").datepicker();
+        });
+    </script>
+    <b>Search Loads by Date</b><br>
+    <form action="/listLoads/" method="post">
+        {% csrf_token %}
+        <b>Date: </b>
+        <input type="text" id="datepick" name="targetDate" >
+        <input type="submit" value="Search">
+    </form>
+    
+    <b>Search Loads by Origin City</b><br>
+    <form action="/listLoads/" method="post">
+        {% csrf_token %}
+        <b>Origin City: </b>
+        <input type="text" name="originCity">
+        <input type="submit" value="Search">
+    </form> 
+
+    <b>Search Loads by Origin State</b><br>
+    <form action="/listLoads/" method="post">
+        {% csrf_token %}
+        <b>Origin State: </b>
+        <input type="text" name="originState">
+        <input type="submit" value="Search">
+    </form>
+
+    <b>Search Loads by Destination State</b><br>
+    <form action="/listLoads/" method="post">
+        {% csrf_token %}
+        <b>Destination State: </b>
+        <input type="text" name="destState">
+        <input type="submit" value="Search">
+    </form>
+
+    <b>Search Loads by Customer</b><br>
+    <form action="/listLoads/" method="post">
+        {% csrf_token %}
+        <b>Customer: </b>
+        <select name="customerName">
+            {% for customer in customerList %}
+                <option value="{{ customer }}"> {{ customer }} </option>
+            {% endfor %}
+        </select>     
+        <input type="submit" value="Search"> 
+    </form>
+
+    <b>Search Loads by Carrier</b><br>
+    <form action="/listLoads/" method="post">
+        {% csrf_token %}
+        <b>Customer: </b>
+        <select name="carrierName">
+            {% for carrier in carrierList %}
+                <option value="{{ carrier }}"> {{ carrier }} </option>
+            {% endfor %}
+        </select>     
+        <input type="submit" value="Search"> 
+    </form>
+
+</body>

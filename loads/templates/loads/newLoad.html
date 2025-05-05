@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script>
+            $(function() {
+                $( ".datepicker" ).datepicker();
+            });
+        </script>
+    </head>
+
+   <header>                                                                    
+        <a href="/logout/">Logout</a>                                           
+        <a href="/newCustomer/">Add Customer</a>                                
+        <a href="/customerList/">Customer List</a>                              
+        <a href="/newCarrier/">Add Carrier</a>                                  
+        <a href="/carrierList/">CarrierList</a>                                 
+        <a href="/newLoad/">Add Load</a>                                        
+        <a href="/home/">Home</a>                                               
+    </header>    
+
+    <h1> Add New Load </h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        <table>
+            <tr>
+                <td>
+                {{ form.as_p }}
+                </td>
+                <td>
+                    <center>   
+                    <button type="submit" class="save btn btn-defualt">Save</button>
+                    </center>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script type="text/javascript">
+        /*
+         * This Script watches the id_job element. Upon it being changed the
+         * script populates many elements in the form in order to save the user
+         * time.
+         */
+        $("#id_job").on('change', function() {
+
+            var jobName = $("#id_job").val();
+            var jsonArray = {{ jobs|safe }}; 
+            
+            if (jobName != "None") {
+                var index;
+                for ( index = 0; index < jsonArray.length; index++) {
+                    if (jsonArray[index].fields.job_name == jobName) {
+                        document.getElementById("id_commodity").value
+                                        = jsonArray[index].fields.commodity;
+                        document.getElementById("id_commodity_details").value
+                                        = jsonArray[index].fields.commodity_details;
+                        
+                        document.getElementById("id_shipper").value
+                                        = jsonArray[index].fields.shipper;
+                        
+                        document.getElementById("id_shipper_street_address").value
+                                        = jsonArray[index].fields.shipper_street_address;
+
+                        document.getElementById("id_origin_city").value
+                                        = jsonArray[index].fields.origin_city;
+
+                        document.getElementById("id_origin_state").value
+                                        = jsonArray[index].fields.origin_state;
+
+                        document.getElementById("id_shipperNumber").value
+                                        = jsonArray[index].fields.shipperNumber;
+
+                        document.getElementById("id_shipperPickupHours").value
+                                        = jsonArray[index].fields.shipperPickupHours;
+
+
+                        document.getElementById("id_reciever").value 
+                                        = jsonArray[index].fields.reciever;
+                        document.getElementById("id_reciever_street_address").value
+                                        = jsonArray[index].fields.reciever_street_address;
+
+                        document.getElementById("id_reciever_city").value 
+                                        = jsonArray[index].fields.reciever_city;
+                       
+                        document.getElementById("id_reciever_state").value 
+                                        = jsonArray[index].fields.reciever_state;
+                        document.getElementById("id_recieverNumber").value 
+                                        = jsonArray[index].fields.recieverNumber;
+                        document.getElementById("id_recieverDropOffHours").value 
+                                        = jsonArray[index].fields.recieverDropOffHours;
+
+                        document.getElementById("id_special_instructions").value
+                                        = jsonArray[index].fields.special_instructions;
+
+                        document.getElementById("id_customer").value
+                                        = jsonArray[index].fields.customer;
+
+                        document.getElementById("id_brokerRate").value
+                                        = jsonArray[index].fields.brokerRate;
+                        document.getElementById("id_bfsc").value
+                                        = jsonArray[index].fields.bfsc;
+                        
+                        document.getElementById("id_carrierRate").value
+                                        = jsonArray[index].fields.carrierRate;
+                        document.getElementById("id_cfsc").value
+                                        = jsonArray[index].fields.cfsc;
+                    }
+                }
+            }
+        });
+    </script> 
+</html>

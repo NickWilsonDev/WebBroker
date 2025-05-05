@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+    <header>
+        <a href="/logout/">Logout</a>                                           
+        <a href="/newCustomer/">Add Customer</a>                                
+        <a href="/customerList/">Customer List</a>                              
+        <a href="/newCarrier/">Add Carrier</a>                                  
+        <a href="/carrierList/">CarrierList</a>                                 
+        <a href="/newLoad/">Add Load</a>                                        
+        <a href="/home/">Home</a> 
+    </header>
+    <center>
+        <h1> Customer List </h1>
+    </center>
+    <table style="width:100%">
+    <tr>
+        <b>
+            <th>Company</th>
+            <th>Phone Number </th>
+            <th>Contact </th>
+        </b>
+    </tr>
+    {% for customer in customers %}
+    <tr>
+        <th>
+            <a href="/customerDetail/{{ customer.pk }}">{{ customer.company_name }}</a>
+        </th>
+        <th>
+            {{ customer.phone_number }}
+        </th>
+        <th>
+            {{ customer.contact_name }}
+        </th>
+    </tr>
+    {% endfor %}
+
+</html>

@@ -1,0 +1,41 @@
+{% extends 'loads/frontendbase.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <center>
+        <h6><b>Gallery</b></h6>
+    </center>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="{% static 'javascript/galleria/galleria-1.4.2.min.js' %}"></script>
+
+    <style>
+        .galleria{ width: 700px; height: 600px; margin-left: auto; 
+                   margin-right: auto; background: rgba(255,255,255,0);}
+    </style>
+
+    <div class="galleria">
+        {% for pic in images %}
+            {% if pic.image %}
+                <img src="/media/{{ pic.image }}" data-description= 
+                    {% if pic.description %} 
+                        "{{ pic.description }}" 
+                    {% else %}
+                        "No Description"
+                    {% endif %} />
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <script>
+        Galleria.loadTheme('{% static 'javascript/galleria/themes/classic/galleria.classic.min.js' %}');
+        Galleria.ready(function() {
+            var gallery = this;
+            this.bind('image', function(e) {
+                $(e.imageTarget).unbind('click').click(function() {
+                    gallery.toggleFullscreen();
+                });
+            });
+        });
+        Galleria.run('.galleria', { autoplay: 5000});
+    </script>
+{% endblock %}

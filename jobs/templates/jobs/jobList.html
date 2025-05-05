@@ -1,0 +1,34 @@
+{% extends 'jobs/brokerHeader.html' %}
+{% block content %}
+
+    <center>
+        <h1> Job List </h1>
+    </center>
+    <table style="width:100%">
+    <tr>
+        <b>
+            <th>Job Name</th>
+            <th>Commodity</th>
+            <th>Commodity Details</th>
+            <th>Shipper</th>
+        </b>
+    </tr>
+    {% for job in jobs %}
+    <tr>
+        <th>
+            <a href="/jobDetail/{{ job.pk }}">{{ job.job_name }}</a>
+        </th>
+        <th>
+            {{ job.commodity }}
+        </th>
+        <th>
+            {{ job.commodity_details }}
+        </th>
+        <th>
+            {{ job.shipper }}
+        </th>
+    </tr>
+    {% endfor %}
+
+{% endblock content %}
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'css/frontend.css' %}">
+<html>
+    <head>
+        <meta name="description" content="Freight brokering company specializing in transportation of bulk commodities by end dumps">
+        <title>AllPointsBulk</title>
+        <center><h3>All Points Bulk Transport LLC</h3></center>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/customerContact">Contact</a>
+                    <ul>
+                        <li><a href="/customerContact">Customers</a></li>
+                        <li><a href="/carrierContact">Carriers</a></li>
+                    </ul>
+                </li>
+                <li><a href="/missionStatement">Mission Statement</a></li>
+                <li><a href="/imageGallery">Gallery</a></li>
+                <li><a href="/login/">Login</a></li>
+        </nav>
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <center>
+        <div class="compass">
+            <img src="{% static 'images/VintageCompass2.png' %}" height="150" width="150"/>
+        </div>
+        <div class="charity">
+            <a href="http://www.woundedwarriorproject.org">
+                <img src="{% static 'images/WoundedWarrior.png' %}" height="75" width="75"/>
+            </a>
+            <a href="http://www.salvationarmyusa.org">
+                <img src="{% static 'images/salvationArmy.jpg' %}" height="75" width="75"/>
+            </a>
+        </div>
+    </center>
+
+   <STYLE type="text/css">
+        img.compass{
+            width: 120px;
+            height: 120px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            -webkit-transition: all 3s ease-in;
+            -moz-transition: all 3s ease-in;
+        }
+    </STYLE>
+
+    <script>
+                var box=$(".compass");
+                var boxCenter = [box.offset().left + box.width() / 2,
+                                box.offset().top + box.height() / 2];
+
+                $(document).mousemove(function(e) {
+                    var angle = Math.atan2(e.pageX - boxCenter[0],
+                                        - (e.pageY - boxCenter[1]))
+                                          * (180 / Math.PI);
+
+                    box.css({ "-webkit-transform": 'rotate(' + angle + 'deg)'});
+                    box.css({ '-moz-transform': 'rotate(' + angle + 'deg)'});
+                    box.css({ 'transform': 'rotate(' + angle + 'deg)'});
+                });
+    </script>
+</html>

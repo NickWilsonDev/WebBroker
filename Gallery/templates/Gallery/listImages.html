@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!-- listImages.html -->
+
+    <a href="/home/">Home</a>
+
+{% if images %}
+    <table border="1" style="width:75%">
+    <tr>
+        <th>
+            Image
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+
+    {% for pic in images %}
+    <tr>
+        <td>
+            <a href="/imageDelete/{{ pic.pk }}">
+                <img src="{% static 'images/trash.png' %}"/>
+            <a href="/imageEdit/{{ pic.pk }}">Image {{ pic.pk }}</a>
+            <img src="/{{ pic.thumbnail.url }}"/>
+        </td>
+        <td>
+            {{ pic.description }}
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {% endif %}

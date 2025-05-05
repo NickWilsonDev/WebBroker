@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <title>All Points Load Confirmation Sheet</title>
+    </head>
+    <Body>
+        <center>
+            <img src="{% static 'images/VintageCompass2.png' %}" height="80" width="80"/>
+            <h2> All Points Bulk Transport LLC</b></h2>
+            117 Blackberry Ln<br>
+            Fairview, NC 28730<br>
+            844.422.2100   FX: 828.628.8020<br>
+            <h3> Dispatch and Load Confirmation Sheet</h3>
+        </center>
+        <a href="javascript:window.print()">Print Confirmation Sheet</a>
+        <center>
+        <b>Current Date:</b> <script language="javascript">
+                                    var today = new Date();
+                                    var day   = today.getDate();
+                                    var month = today.getMonth() + 1;
+                                    var year  = today.getFullYear();
+                                    document.write(month + "/" + day + "/" + year);
+                                 </script>
+                                 <br>
+        <b>AllPointsBulk Pay Number:</b> {{ load.pk }} <br>
+
+        <table border="1">
+        <tr>
+            <th>
+                <b>Shipper</b> 
+            </th>
+            <th>
+                <b>Reciever</b>
+            </th>
+        </tr>
+            <tr>  
+                <th>
+                    <b>Pickup Date:</b> {{ load.pickupDate }}
+                </th>
+
+                <th>
+                    <b>Destination Date:</b> {{ load.recieveDate }}
+                </th>
+
+            </tr>  
+            <tr> 
+                <th>
+                    <b>Shipper:</b> {{ load.shipper }} 
+                </th>
+
+                <th>
+                    <b>Reciever:</b> {{ load.reciever }} <br>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <b>Street Address:</b> {{ load.shipper_street_address }}
+                </th>
+
+                <th>
+                    <b>Street Address:</b> {{ load.reciever_street_address }} <br>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <b>City, State:</b> {{ load.origin_city }}, {{ load.origin_state }} 
+                </th>
+
+                <th>
+                    <b>City, State:</b> {{ load.reciever_city }}, {{ load.reciever_state }} <br>
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <b>Shipper Phone Number:</b> {{ load.shipperNumber }} 
+                </th>
+
+                <th>
+                    <b>Reciever Phone Number:</b> {{ load.recieverNumber }} 
+                </th>
+
+            </tr>
+            <tr>
+               <th> 
+                    <b>Special Pickup Times:</b> {{ load.shipperPickupHours }}
+               </th>
+
+                <th>
+                    <b>Special Droppoff Times:</b> {{ load.recieverDropOffHours }}
+                </th>
+
+            </tr>
+            <tr>
+                <th>
+                    <b>Commodity:</b> {{ load.commodity }}
+                    <b>Details:</b> {{ load.commodity_details }}
+                </th>   
+                <th>
+                    <b>Carrier Company:</b> {{ load.carrier }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <b>Rate:</b> ${{ load.carrierRate }}
+                </th>
+                <th>
+                    <b>Carrier Fax:</b> {{ load.carrierFax }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <b>Percent:</b> {{ load.carrierPercent }}% 
+                </th>
+                <th>                
+                    <b>Carrier Email:</b> {{ load.carrierEmail }}
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <b>CFSC:</b> {{ load.cfsc }}%
+                </th>
+            
+            </tr>
+            <tr>
+                <th>
+                    <b>Special Instructions:</b> {{ load.special_instructions }} <br>
+                </th>
+            </tr>
+            </table>
+        </center>
+    </body>
+</html>
